@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    name: Build MSI Installer
+    name: Build Eta Windows Binary
     runs-on: windows-latest
 
     steps:
@@ -23,11 +23,6 @@ jobs:
           toolchain: stable
           targets: x86_64-pc-windows-msvc
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Install cargo-tauri CLI
         run: cargo install tauri-cli --version 1.6
 
@@ -37,21 +32,21 @@ jobs:
           cargo --version
           cargo tauri --version
 
-      - name: Build Windows MSI
-        run: cargo tauri build --verbose
+      - name: Build Windows Binary
+        run: cargo build --release
 
-      - name: Upload MSI artifact
+      - name: Upload binary artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Eta-Setup
-          path: src-tauri/target/release/bundle/msi/*.msi
+          name: Eta-Binary
+          path: src-tauri/target/release/eta-windows.exe
           retention-days: 14
 
       - name: Create GitHub Release (if tag)
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
-          files: src-tauri/target/release/bundle/msi/*.msi
+          files: src-tauri/target/release/eta-windows.exe
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
