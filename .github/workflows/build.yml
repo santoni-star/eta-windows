@@ -23,8 +23,13 @@ jobs:
           toolchain: stable
           targets: x86_64-pc-windows-msvc
 
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install cargo-tauri CLI
-        run: cargo install tauri-cli
+        run: cargo install tauri-cli --version 1.6
 
       - name: Check versions
         run: |
