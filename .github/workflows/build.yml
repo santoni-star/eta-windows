@@ -24,7 +24,7 @@ jobs:
           targets: x86_64-pc-windows-msvc
 
       - name: Install cargo-tauri CLI
-        run: cargo install cargo-tauri --version 1.6 --locked
+        run: cargo install cargo-tauri --version 1.6
 
       - name: Check versions
         run: |
