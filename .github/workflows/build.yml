@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    name: Build Eta Windows Binary
+    name: Build Eta Windows Binary (.exe)
     runs-on: windows-latest
 
     steps:
@@ -23,17 +23,8 @@ jobs:
           toolchain: stable
           targets: x86_64-pc-windows-msvc
 
-      - name: Install cargo-tauri CLI
-        run: cargo install tauri-cli --version 1.6
-
-      - name: Check versions
-        run: |
-          rustc --version
-          cargo --version
-          cargo tauri --version
-
-      - name: Build Windows Binary
-        run: cargo build --release
+      - name: Build Eta Windows (.exe)
+        run: cargo build --release --verbose
 
       - name: Upload binary artifact
         uses: actions/upload-artifact@v4
