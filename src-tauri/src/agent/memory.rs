@@ -18,7 +18,7 @@ pub struct MemoryStore {
 impl MemoryStore {
     pub async fn new(db_path: &Path) -> Result<Self> {
         let pool = SqlitePool::connect(&format!("sqlite:{}", db_path.display())).await?;
-        
+
         sqlx::migrate!("./migrations")
             .run(&pool)
             .await
@@ -36,7 +36,7 @@ impl MemoryStore {
         .bind(chrono::Utc::now())
         .execute(&self.pool)
         .await?;
-        
+
         Ok(())
     }
 
@@ -47,7 +47,7 @@ impl MemoryStore {
         .bind(limit)
         .fetch_all(&self.pool)
         .await?;
-        
+
         Ok(rows)
     }
 
@@ -58,7 +58,7 @@ impl MemoryStore {
         .bind(format!("%{}%", query))
         .fetch_all(&self.pool)
         .await?;
-        
+
         Ok(rows)
     }
 }

@@ -1,4 +1,3 @@
-pub mod commands;
 pub mod loop_manager;
-pub mod state;
 pub mod memory;
+pub mod state;

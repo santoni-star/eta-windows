@@ -44,7 +44,6 @@ pub mod commands {
         text: String,
         _state: State<'_, AppState>,
     ) -> Result<(), String> {
-        // Text-to-speech would use Windows SAPI
         Ok(())
     }
 }
