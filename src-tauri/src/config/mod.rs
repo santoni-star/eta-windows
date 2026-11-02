@@ -1,5 +1,3 @@
-pub mod commands;
-
 use serde::{Deserialize, Serialize};
 use std::path::Path;
 
@@ -31,7 +29,7 @@ impl Default for AppConfig {
 impl AppConfig {
     pub fn load(config_dir: &std::path::Path) -> Result<Self, Box<dyn std::error::Error>> {
         let config_path = config_dir.join("config.yaml");
-        
+
         if config_path.exists() {
             let content = std::fs::read_to_string(&config_path)?;
             let config: Self = serde_yaml::from_str(&content)?;
@@ -45,10 +43,10 @@ impl AppConfig {
         let config_dir = directories::ProjectDirs::from("io", "github", "mangi.eta")
             .ok_or("Failed to get project dirs")?;
         let config_path = config_dir.config_dir().join("config.yaml");
-        
+
         let content = serde_yaml::to_string(self)?;
         std::fs::write(&config_path, content)?;
-        
+
         Ok(())
     }
 }

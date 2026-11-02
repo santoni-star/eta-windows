@@ -5,36 +5,20 @@ description = "Eta - System-level AI Assistant for Windows"
 edition = "2021"
 
 [dependencies]
-tauri = { version = "1.6", features = ["api-all", "global-shortcut", "system-tray", "notification", "fs", "shell", "dialog", "window", "path", "process", "http"] }
+tauri = { version = "1.6", features = ["api-all"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tokio = { version = "1", features = ["full"] }
 chrono = { version = "0.4", features = ["serde"] }
-reqwest = { version = "0.11", features = ["json"] }
 directories = "5"
 anyhow = "1"
 thiserror = "1"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-windows = { version = "0.52", features = [
-    "Win32_Foundation",
-    "Win32_System_LibraryLoader",
-    "Win32_System_SystemServices",
-    "Win32_System_Threading",
-    "Win32_UI_Input",
-    "Win32_UI_Input_KeyboardAndMouse",
-    "Win32_UI_Shell",
-    "Win32_UI_WindowsAndMessaging",
-    "Win32_UI_Accessibility",
-] }
-rdev = "0.7"
 serde_yaml = "0.9"
 
 [build-dependencies]
-tauri-build = { version = "1.6", features = [] }
+tauri-build = { version = "1.6" }
 
 [profile.release]
 opt-level = 3
-lto = true
-codegen-units = 1
-panic = "abort"

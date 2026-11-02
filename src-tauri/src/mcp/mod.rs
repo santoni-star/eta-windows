@@ -1,5 +1,3 @@
-pub mod commands;
-
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,8 +25,6 @@ pub mod commands {
     pub async fn list_servers(
         state: State<'_, AppState>,
     ) -> Result<Vec<McpServerConfig>, String> {
-        let config = state.config.lock().unwrap();
-        // MCP servers would be stored in config
         Ok(vec![])
     }
 
@@ -37,7 +33,6 @@ pub mod commands {
         name: String,
         _state: State<'_, AppState>,
     ) -> Result<(), String> {
-        // Connect to MCP server
         Ok(())
     }
 }
