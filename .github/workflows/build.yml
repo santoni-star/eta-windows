@@ -23,28 +23,17 @@ jobs:
           toolchain: stable
           targets: x86_64-pc-windows-msvc
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
       - name: Install cargo-tauri CLI
-        uses: tauri-apps/tauri-action@v0
-        with:
-          action: install
+        run: cargo install cargo-tauri --version 1.6 --locked
 
-      - name: Check Rust and Tauri versions
+      - name: Check versions
         run: |
           rustc --version
           cargo --version
           cargo tauri --version
 
       - name: Build Windows MSI
-        uses: tauri-apps/tauri-action@v0
-        with:
-          action: build
-          args: --verbose
+        run: cargo tauri build --verbose
 
       - name: Upload MSI artifact
         uses: actions/upload-artifact@v4
@@ -52,12 +41,6 @@ jobs:
           name: Eta-Setup
           path: src-tauri/target/release/bundle/msi/*.msi
           retention-days: 14
-
-      - name: Get release version
-        id: version
-        run: |
-          $version = (Get-Content src-tauri/Cargo.toml | Select-String "version =").ToString().Split('"')[1]
-          echo "version=$version" >> $env:GITHUB_OUTPUT
 
       - name: Create GitHub Release (if tag)
         if: startsWith(github.ref, 'refs/tags/')
